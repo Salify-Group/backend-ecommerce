@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from datetime import timedelta
 
@@ -30,7 +31,9 @@ INSTALLED_APPS = [
     "corsheaders",
 
     # APPS:
+    "debug_toolbar",
     'accounts',
+    'products',
 
     # REST:
     'rest_framework',
@@ -44,6 +47,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -170,3 +174,10 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
