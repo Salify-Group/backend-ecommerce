@@ -21,7 +21,7 @@ class SubCategory(models.Model):
 
 class Category(models.Model):
     main_category = models.ForeignKey(MainCategory, on_delete=models.CASCADE, related_name="sub_categories")
-    sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE, unique=True)
+    sub_category = models.OneToOneField(SubCategory, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.sub_category.sub_name} < {self.main_category.main_name}"
@@ -77,6 +77,7 @@ class Product(models.Model):
     main_category = models.ForeignKey(MainCategory, on_delete=models.SET_DEFAULT, default="دسته بندی نشده")
     sub_category = models.ForeignKey(SubCategory, on_delete=models.SET_DEFAULT, default="دسته بندی نشده", null=True, blank=True)
     published = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.title} / {self.main_category.name} / {self.sub_category.name} "

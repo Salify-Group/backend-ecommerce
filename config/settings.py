@@ -1,6 +1,10 @@
 import os
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -10,10 +14,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '~fYo;lok{ZB8bq>yK=LIb=VFd@NBg&jh4eCYR3tx$>E@vFo9P(xYlJrti/i;6u+s7>mw/GQ:NR!@H([2OcR((jistHr@hs:kjBT7z|_9|'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = ['192.168.1.1','localhost',"127.0.0.1" ]
 
@@ -34,6 +38,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'accounts',
     'products',
+    # 'payment',
 
     # REST:
     'rest_framework',
@@ -180,4 +185,4 @@ INTERNAL_IPS = [
 ]
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = 'api/products/media/'

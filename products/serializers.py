@@ -15,6 +15,7 @@ class CategoryShowSerializer(serializers.ModelSerializer):
             "sub_category",
         ]
 
+
 class CategoryAddSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -59,13 +60,21 @@ class MainCategorySerializer(serializers.ModelSerializer):
 class FeatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feature
-        fields = '__all__'
+        fields = [
+            "id",
+            "key",
+            "value",
+        ]
 
 
 class ColorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Color
-        fields = '__all__'
+        fields = [
+            "id",
+            "color",
+        ]
+
 
 class SizeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -79,13 +88,25 @@ class VolumeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = '__all__'
-
-
 class ProductVarietySerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductVariety
         fields = '__all__'
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    images = UploadImageSerializer(many=True, read_only=True)
+    product_variety = ProductVarietySerializer(many=True, read_only=True)
+    class Meta:
+        model = Product
+        fields = [
+            "id",
+            "image",
+            "images",
+            "title", "meta_title", "slug",
+            "short_description", "full_description", "meta_description",
+            "main_category", "sub_category",
+            "published",
+            "product_variety",
+        ]
+
